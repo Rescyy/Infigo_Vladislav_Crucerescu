@@ -1,7 +1,9 @@
 using CMSPlus.Domain.Models.TopicModels;
+using CMSPlus.Domain.Models.CommentModels;
 using CMSPlus.Domain.Persistance;
 using CMSPlus.Presentation.AutoMapperProfiles;
-using CMSPlus.Presentation.Validations;
+using CMSPlus.Presentation.Validations.Comment;
+using CMSPlus.Presentation.Validations.Topic;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 
@@ -15,8 +17,8 @@ public static class Configurator
         services.AddScoped<TopicValidatorHelpers>();
         services.AddScoped<IValidator<TopicCreateModel>, TopicCreateModelValidator>();
         services.AddScoped<IValidator<TopicEditModel>, TopicEditModelValidator>();
-        services.AddControllersWithViews();
         services.AddValidatorsFromAssemblyContaining<TopicEditModelValidator>();
+        services.AddScoped<IValidator<CommentCreateModel>, CommentCreateModelValidator>();
         services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ApplicationDbContext>();
         services.AddDatabaseDeveloperPageExceptionFilter();

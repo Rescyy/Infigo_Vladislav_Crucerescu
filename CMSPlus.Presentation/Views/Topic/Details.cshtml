@@ -14,4 +14,7 @@
     <div class="row">
         <p class="col-12 text-black-50 text-end">System name: @Model.SystemName</p>
     </div>
+
+    <a asp-controller="Comment" asp-action="Create" asp-route-topicid="@Model.Id" asp-route-systemname="@Model.SystemName" class="btn btn-primary m-auto">Add Comment</a>
+
 </div>

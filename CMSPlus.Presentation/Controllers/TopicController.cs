@@ -5,31 +5,33 @@ using CMSPlus.Domain.Models.TopicModels;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using CMSPlus.Domain.Models.CommentModels;
 
 namespace CMSPlus.Presentation.Controllers;
 
 public class TopicController : Controller
 {
     private readonly ITopicService _topicService;
+    private readonly ICommentService _commentService;
     private readonly IMapper _mapper;
     private readonly IValidator<TopicEditModel> _editModelValidator;
     private readonly IValidator<TopicCreateModel> _createModelValidator;
 
-    public TopicController(ITopicService topicService,IMapper mapper, IValidator<TopicEditModel> editModelValidator, IValidator<TopicCreateModel> createModelValidator)
+    public TopicController(ITopicService topicService, IMapper mapper, IValidator<TopicEditModel> editModelValidator, IValidator<TopicCreateModel> createModelValidator)
     {
         _topicService = topicService;
         _mapper = mapper;
         _editModelValidator = editModelValidator;
         _createModelValidator = createModelValidator;
     }
-    
+
     public async Task<IActionResult> Index()
     {
-        var topics =  await _topicService.GetAll();
+        var topics = await _topicService.GetAll();
         var topicToDisplay = _mapper.Map<IEnumerable<TopicEntity>, IEnumerable<TopicModel>>(topics);
         return View(topicToDisplay);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
@@ -41,7 +43,7 @@ public class TopicController : Controller
         var topicDto = _mapper.Map<TopicEntity, TopicEditModel>(topicToEdit);
         return View(topicDto);
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Edit(TopicEditModel updatedEntity)
     {
@@ -57,7 +59,7 @@ public class TopicController : Controller
         await _topicService.Update(topicEntity);
         return RedirectToAction("Index");
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
@@ -68,8 +70,8 @@ public class TopicController : Controller
         }
         var topicDto = _mapper.Map<TopicEntity, TopicModel>(topicToDelete);
         return View(topicDto);
-    }    
-    
+    }
+
     [HttpPost]
     [ActionName("Delete")]
     public async Task<IActionResult> DeleteById(int id)
@@ -77,13 +79,13 @@ public class TopicController : Controller
         await _topicService.Delete(id);
         return RedirectToAction("Index");
     }
-    
+
     [HttpGet]
     public IActionResult Create()
     {
         return View();
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create(TopicCreateModel topic)
     {
@@ -98,6 +100,7 @@ public class TopicController : Controller
         return RedirectToAction("Index");
     }
 
+    [HttpGet]
     public async Task<IActionResult> Details(string systemName)
     {
         var topic = await _topicService.GetBySystemName(systemName);
