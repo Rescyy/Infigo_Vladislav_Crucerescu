@@ -16,5 +16,28 @@
     </div>
 
     <a asp-controller="Comment" asp-action="Create" asp-route-topicid="@Model.Id" asp-route-systemname="@Model.SystemName" class="btn btn-primary m-auto">Add Comment</a>
+    @if (Model.Comments.Any())
+	{
+		<h2 class="row-12 text-black mt-3">Comments:</h2>
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="col mt-3 border rounded">
+                <div class="row mx-2 flex">
+                    <p class="text-start mt-2" style="font-weight: 700;">@comment.FullName</p>
+                    <p class="text-black-50 col-6">Created: @comment.CreatedOnUtc</p>
+                </div>
 
+                <hr class="m-3" />
+
+                <div class="row-12 mx-3">
+                    <p class="fs-6">@Html.Raw(comment.Body)</p>
+                </div>
+
+            </div>
+        }
+	}
+	else
+	{
+		<h2 class="row-12 text-black mt-3">No comments.</h2>
+	}
 </div>

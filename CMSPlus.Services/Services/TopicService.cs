@@ -23,6 +23,11 @@ public class TopicService:ITopicService
         return await _repository.GetBySystemName(systemName);
     }
 
+    public async Task<TopicEntity?> GetBySystemNameWithComments(string systemName)
+    {
+        return await _repository.GetBySystemNameWithComments(systemName);
+    }
+
     public async Task<IEnumerable<TopicEntity>> GetAll()
     {
         return await _repository.GetAll();

@@ -6,6 +6,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using CMSPlus.Domain.Models.CommentModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CMSPlus.Presentation.Controllers;
 
@@ -103,12 +104,13 @@ public class TopicController : Controller
     [HttpGet]
     public async Task<IActionResult> Details(string systemName)
     {
-        var topic = await _topicService.GetBySystemName(systemName);
+        var topic = await _topicService.GetBySystemNameWithComments(systemName);
         if (topic == null)
         {
             throw new ArgumentException($"Item with system name: {systemName} wasn't found!");
         }
         var topicDto = _mapper.Map<TopicEntity, TopicDetailsModel>(topic);
+
         return View(topicDto);
     }
 }
