@@ -19,7 +19,6 @@ public class MigrationService:IMigrationService
             Locations = new[]{location},
             IsEraseDisabled = true,
         };
-        _evolve.EnableClusterMode = false;
     }
 
     public void Migrate()
@@ -30,7 +29,7 @@ public class MigrationService:IMigrationService
         }
         catch (Exception ex)
         {
-            //throw new Exception($"Failed to run migration", ex);
+            throw new Exception($"Failed to run migration", ex);
         }
     }
 }

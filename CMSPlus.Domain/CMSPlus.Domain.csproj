@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
@@ -14,7 +14,7 @@
 
     <ItemGroup>
       <None Remove="Migrations\V1_1_1__Create_Topic_Table.sql" />
-      <Content Include="Migrations\V1_1_1__Create_Topic_Table.sql">
+      <Content Include="Migrations\*.sql">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

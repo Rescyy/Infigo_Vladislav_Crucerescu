@@ -12,5 +12,6 @@ public class TopicEntityConfiguration:IEntityTypeConfiguration<TopicEntity>
         builder.Property(x => x.Body).IsRequired();
         builder.Property(x => x.Title).IsRequired();
         builder.Property(x => x.SystemName).IsRequired();
+        builder.HasMany(x => x.Comments).WithOne(x => x.Topic).HasForeignKey(x => x.TopicId).HasPrincipalKey(x => x.Id);
     }
 }
